@@ -4,6 +4,7 @@
     <strong>Symbol: </strong> <%= @stock.ticker %>
     <strong>Name: </strong> <%= @stock.name %>
     <strong>Price: </strong> <%= @stock.last_price %>
+
     <% if current_user.can_add_stock?(@stock.ticker) %>
       <%= link_to "Add to my stocks", user_stocks_path(user: current_user, stock_ticker: @stock.ticker), 
                                                     class: "btn btn-xs btn-success", method: :post %>
@@ -14,7 +15,9 @@
         10 stocks
         <% end %>
         <% if current_user.stock_already_added?(@stock.ticker) %>
-        this stock
+          <% stock_var = Stock.find_by_ticker(@stock.ticker) %>
+          <% stock_var.update(last_price: @stock.last_price) %>
+          but it has been updated.
         <% end %>
       </span>
     <% end %>
