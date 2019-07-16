@@ -1,6 +1,6 @@
 <div class="navbar navbar-default navbar-static-top">
   <div class="container">
-    <%= link_to "Finance Tracker", root_path, class: "navbar-brand" %>
+    <%= link_to "TrackStock", root_path, class: "navbar-brand" %>
     <% if current_user %>
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
         <span class="icon-bar"></span>
@@ -17,7 +17,7 @@
         <ul class="nav navbar-right col-md-4">
           <li class="col-md-8 user-name text-right">
             <i class="fa fa-user"></i>
-            <%= current_user.full_name.present? ? current_user.full_name : current_user.email %>
+            <%= current_user.email %>
           </li>
           <li class="col-md-4 logout">
             <%= link_to("logout", destroy_user_session_path,
