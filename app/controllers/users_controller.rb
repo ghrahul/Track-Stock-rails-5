@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
+  before_action :portfolio_update, only: [:my_portfolio]
   
   def my_portfolio
     @user_stocks = current_user.stocks
-    @user = current_user
+    @user
   end
   
   def my_friends
@@ -36,6 +37,13 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @user_stocks = @user.stocks
+  end
+
+  def portfolio_update
+    @user = current_user
+    @user.stocks.each do |stock|
+       stock.update(last_price: StockQuote::Stock.quote(stock.ticker).latest_price)
+    end
   end
   
 end

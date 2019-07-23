@@ -7,7 +7,7 @@ class StocksController < ApplicationController
        begin
         StockQuote::Stock.new(api_key: 'pk_e8793f14b4b3494c97abf63680b8ba21')
         var = StockQuote::Stock.quote(params[:stock])
-        @stock = Stock.new(ticker: var.symbol, name: var.company_name, last_price: var.close)
+        @stock = Stock.new(ticker: var.symbol, name: var.company_name, last_price: var.latest_price)
        rescue Exception => e
         return nil
     end
@@ -16,5 +16,10 @@ class StocksController < ApplicationController
     respond_to do |format|
       format.js { render partial: 'users/result' }
     end
+  end
+
+  def analyze
+    @stock_analysis_result = StockQuote::Stock.chart(params[:stock])
+    render json: @stock_analysis_result
   end
 end

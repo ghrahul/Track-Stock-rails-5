@@ -15,9 +15,7 @@
         10 stocks
         <% end %>
         <% if current_user.stock_already_added?(@stock.ticker) %>
-          <% stock_var = Stock.find_by_ticker(@stock.ticker) %>
-          <% stock_var.update(last_price: @stock.last_price) %>
-          but it has been updated.
+          it
         <% end %>
       </span>
     <% end %>
